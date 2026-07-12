@@ -1,0 +1,8 @@
+node_modules/
+*.log
+temp/
+backups/
+exports/
+sdk/
+secrets/
+.hydra/
