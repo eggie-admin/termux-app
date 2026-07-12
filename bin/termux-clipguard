@@ -1,0 +1,24 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+set -e
+
+CLIP="$(termux-clipboard-get 2>/dev/null || true)"
+
+if [ -z "$CLIP" ]; then
+    echo "Clipboard is empty or Termux:API isn't available."
+    exit 1
+fi
+
+if printf '%s\n' "$CLIP" | grep -Eiq \
+'rm -rf|chmod 777|mkfs|dd if=|PRIVATE KEY|API_KEY|TOKEN=|sudo |su |curl .*\\|sh|wget .*\\|sh'
+then
+    echo
+    echo "⚠ Potentially dangerous clipboard contents detected."
+    echo
+    printf '%s\n' "$CLIP"
+    echo
+    read -p "Paste anyway? [y/N] " ans
+    [ "$ans" = "y" ] || [ "$ans" = "Y" ] || exit 1
+fi
+
+printf '%s\n' "$CLIP"
