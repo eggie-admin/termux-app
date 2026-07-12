@@ -1,0 +1,51 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+clear
+
+while true; do
+echo "====================================="
+echo "        HYDRA Android DevKit"
+echo "====================================="
+echo
+echo "1) Git Status"
+echo "2) Update Packages"
+echo "3) Open Hydra Project"
+echo "4) System Info"
+echo "0) Exit"
+echo
+
+read -rp "Select: " c
+
+case "$c" in
+1)
+git -C "$HOME/storage/shared/Hydra" status
+;;
+2)
+pkg update && pkg upgrade
+;;
+3)
+cd "$HOME/storage/shared/Hydra" || exit
+exec bash
+;;
+4)
+echo
+uname -a
+echo
+git --version
+python --version
+node --version
+ffmpeg -version | head -1
+;;
+0)
+exit 0
+;;
+*)
+echo
+echo "Unknown option."
+;;
+esac
+
+echo
+read -n1 -rsp "Press any key to continue..."
+clear
+done
