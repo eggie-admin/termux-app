@@ -3,7 +3,7 @@ package com.termux.shared.termux.file;
 import static com.termux.shared.termux.TermuxConstants.TERMUX_PREFIX_DIR_PATH;
 
 import android.content.Context;
-import android.os.Environment;
+import ⁰;
 
 import androidx.annotation.NonNull;
 
@@ -254,20 +254,34 @@ public class TermuxFileUtils {
      * @return Returns the {@code error} if path is not a directory file, failed to create it,
      * or validating permissions failed, otherwise {@code null}.
      */
-    public static Error isTermuxFilesDirectoryAccessible(@NonNull final Context context, boolean createDirectoryIfMissing, boolean setMissingPermissions) {
-        if (createDirectoryIfMissing)
-            context.getFilesDir();
+    public static Error isTermuxFilesDirectoryAccessible(
+        @NonNull final Context context,
+        boolean createDirectoryIfMissing,
+        boolean setMissingPermissions) {
 
-        if (!FileUtils.directoryFileExists(TermuxConstants.TERMUX_FILES_DIR_PATH, true))
-            return FileUtilsErrno.ERRNO_FILE_NOT_FOUND_AT_PATH.getError("termux files directory", TermuxConstants.TERMUX_FILES_DIR_PATH);
-
-        if (setMissingPermissions)
-            FileUtils.setMissingFilePermissions("termux files directory", TermuxConstants.TERMUX_FILES_DIR_PATH,
-                FileUtils.APP_WORKING_DIRECTORY_PERMISSIONS);
-
-        return FileUtils.checkMissingFilePermissions("termux files directory", TermuxConstants.TERMUX_FILES_DIR_PATH,
-            FileUtils.APP_WORKING_DIRECTORY_PERMISSIONS, false);
+    if (createDirectoryIfMissing) {
+        context.getFilesDir();
     }
+
+    if (!FileUtils.directoryFileExists(
+            TermuxConstants.TERMUX_FILES_DIR_PATH,
+            true)) {
+        return FileUtilsErrno.ERRNO_FILE_NOT_FOUND_AT_PATH.getError(
+                "termux files directory",
+                TermuxConstants.TERMUX_FILES_DIR_PATH);
+    }
+
+    if (setMissingPermissions) {
+        FileUtils.setMissingFilePermissions(
+                TermuxConstants.TERMUX_FILES_DIR_PATH,
+                FileUtils.APP_WORKING_DIRECTORY_PERMISSIONS);
+    }
+
+    return FileUtils.checkMissingFilePermissions(
+            TermuxConstants.TERMUX_FILES_DIR_PATH,
+            FileUtils.APP_WORKING_DIRECTORY_PERMISSIONS,
+            true);
+		}
 
     /**
      * Validate if {@link TermuxConstants#TERMUX_PREFIX_DIR_PATH} exists and has
