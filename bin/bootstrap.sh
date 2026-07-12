@@ -38,3 +38,14 @@ fi
 
 grep -qxF 'export PATH="$HOME/.hydra/bin:$PATH"' "$HOME/.bashrc" 2>/dev/null || \
 echo 'export PATH="$HOME/.hydra/bin:$PATH"' >> "$HOME/.bashrc"
+
+mkdir -p "$HOME/.hydra/scripts"
+
+if [ -f "$HOME/storage/shared/Hydra/bin/termux-clipguard" ]; then
+    cp "$HOME/storage/shared/Hydra/bin/termux-clipguard" \
+       "$HOME/.hydra/scripts/termux-clipguard"
+    chmod 700 "$HOME/.hydra/scripts/termux-clipguard"
+fi
+
+grep -qxF "alias clipguard='\$HOME/.hydra/scripts/termux-clipguard'" "$HOME/.bashrc" 2>/dev/null || \
+echo "alias clipguard='\$HOME/.hydra/scripts/termux-clipguard'" >> "$HOME/.bashrc"
