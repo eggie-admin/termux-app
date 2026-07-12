@@ -28,3 +28,13 @@ chmod 700 "$HOME/.hydra"
 chmod 700 "$HOME/.hydra/"*
 
 echo "Bootstrap complete."
+
+mkdir -p "$HOME/.hydra/bin"
+
+if [ -f "$HOME/storage/shared/Hydra/bin/hydra" ]; then
+    cp "$HOME/storage/shared/Hydra/bin/hydra" "$HOME/.hydra/bin/hydra"
+    chmod 700 "$HOME/.hydra/bin/hydra"
+fi
+
+grep -qxF 'export PATH="$HOME/.hydra/bin:$PATH"' "$HOME/.bashrc" 2>/dev/null || \
+echo 'export PATH="$HOME/.hydra/bin:$PATH"' >> "$HOME/.bashrc"
