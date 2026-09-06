@@ -38,12 +38,12 @@ This repo's `bootstrap.sh` discovers Samsung/Shizuku/Termux capabilities and can
 ## Usage
 
 ```bash
-./hydra-sm-x400/bootstrap.sh status
+bash hydra-sm-x400/bootstrap.sh status
 
 HYDRA_SHELL="$HOME/hydra-shell-android" \
-  ./hydra-sm-x400/bootstrap.sh install-widget
+  bash hydra-sm-x400/bootstrap.sh install-widget
 
-./hydra-sm-x400/bootstrap.sh cockpit
+bash hydra-sm-x400/bootstrap.sh cockpit
 ```
 
 `install-widget` calls the existing Hydra supervisor's `install` command. Missing optional capabilities are reported as capability downgrades, not treated as a broken Termux build.
